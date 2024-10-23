@@ -33,3 +33,5 @@ export default function RootLayout({
     </html>
   );
 }
+//! añadir funciones de containers, domain, pages, store.
+//? tomar de ejemplo proyecto credy-front
