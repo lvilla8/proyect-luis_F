@@ -17,7 +17,7 @@ export default function Home() {
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
-        const response = await fetch("http://localhost:3001/usuarios/lol");
+        const response = await fetch("http://localhost:3001/usuarios/get");
         if (!response.ok) {
           throw new Error("Error en la respuesta de la API");
         }
