@@ -1,4 +1,4 @@
-export interface CreateLibrosDto {
+export interface Libros {
   titulo: string;
   autor_id: number;
   genero: string;

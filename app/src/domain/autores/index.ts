@@ -1,4 +1,5 @@
-export interface CreateAutoresDto {
+export interface Autor {
+  id: number;
   nombre: string;
   nacionalidad: string;
 }

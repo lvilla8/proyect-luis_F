@@ -1,34 +1,65 @@
-//!--------------------------------------------------------------
-// import { useEffect, useState } from "react";
-// import axios from "axios";
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Usuario = {
+  id: number;
+  nombre: string;
+  email: string;
+  edad: number;
+  prestamos_id: number;
+};
 
 export default function Home() {
-  // const [usuarios, setUsuarios] = useState([]);
+  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   const fetchUsuarios = async () => {
-  //     try {
-  //       const response = await axios.get(`${process.env.BACKEND_URL}/usuarios`);
-  //       setUsuarios(response.data);
-  //     } catch (error) {
-  //       console.error("Error al obtener usuarios:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/usuarios/lol");
+        if (!response.ok) {
+          throw new Error("Error en la respuesta de la API");
+        }
+        const result = await response.json();
+        setUsuarios(result);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Error desconocido");
+        }
+        console.error("Error al obtener los datos:", error);
+        console.log("no obtiene datos");
+      }
+    };
 
-  //   fetchUsuarios();
-  // }, []);
+    fetchUsuario();
+  }, []);
+
   return (
     <div>
-      <h1>Usuarios</h1>
+      <h1>
+        {" "}
+        <br />
+        Practica:
+      </h1>
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <ul>
-          <p>
-            Luis <br />
-          </p>
-          {/* {usuarios.map((usuario) => (
-          <li key={usuario.id}>{usuario.nombre}</li>
-        ))} */}
-        </ul>
+        <h1>Usuarios del Backend</h1>
+        {error && <p>Error: {error}</p>}
+        {usuarios.length > 0 ? (
+          <ul>
+            {usuarios.map((usuario) => (
+              <li key={usuario.id}>
+                ID: {usuario.id}, Nombre: {usuario.nombre}, Email:{" "}
+                {usuario.email}, Edad: {usuario.edad}, Prestamos ID:{" "}
+                {usuario.prestamos_id}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Cargando...</p>
+        )}
       </div>
     </div>
   );

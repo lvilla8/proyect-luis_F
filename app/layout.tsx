@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "./src/components/navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,10 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Navbar />
         {children}
       </body>
     </html>
   );
 }
-//! añadir funciones de containers, domain, pages, store.
-//? tomar de ejemplo proyecto credy-front
