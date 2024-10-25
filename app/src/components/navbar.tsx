@@ -4,14 +4,27 @@ import React from "react";
 const Navbar = () => {
   return (
     <div>
-      <h2>Navbar</h2>
+      <h1>
+        {" "}
+        <br />
+        Navbar <br /> .
+      </h1>
       <nav>
         <ul>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/luis">luis_</Link>
           </li>
           <li>
-            <Link href="/luis">luis_</Link>
+            <Link href="/libros">Libros</Link>
+          </li>
+          <li>
+            <Link href="/autores">Autores</Link>
+          </li>
+          <li>
+            <Link href="/">Usuarios</Link>
+          </li>
+          <li>
+            <Link href="/prestamos">Prestamos</Link>
           </li>
         </ul>
       </nav>

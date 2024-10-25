@@ -2,27 +2,27 @@
 
 import { useEffect, useState } from "react";
 
-type Usuario = {
+type Libros = {
   id: number;
-  nombre: string;
-  email: string;
-  edad: number;
-  prestamos_id: number;
+  titulo: string;
+  autor_id: number;
+  genero: string;
+  stock: number;
 };
 
-export default function Home() {
-  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+const Libro = () => {
+  const [libros, setLibros] = useState<Libros[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchUsuario = async () => {
+    const fetchLibro = async () => {
       try {
-        const response = await fetch("http://localhost:3001/usuarios/get");
+        const response = await fetch("http://localhost:3001/libros/get");
         if (!response.ok) {
           throw new Error("Error en la respuesta de la API");
         }
         const result = await response.json();
-        setUsuarios(result);
+        setLibros(result);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setError(error.message);
@@ -34,7 +34,7 @@ export default function Home() {
       }
     };
 
-    fetchUsuario();
+    fetchLibro();
   }, []);
 
   return (
@@ -42,18 +42,17 @@ export default function Home() {
       <h1>
         {" "}
         <br />
-        Usuarios:
+        Libros:
       </h1>
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <h1>Usuarios del Backend</h1>
+        <h1>Libros del Backend</h1>
         {error && <p>Error: {error}</p>}
-        {usuarios.length > 0 ? (
+        {libros.length > 0 ? (
           <ul>
-            {usuarios.map((usuario) => (
-              <li key={usuario.id}>
-                ID: {usuario.id}, Nombre: {usuario.nombre}, Email:{" "}
-                {usuario.email}, Edad: {usuario.edad}, Prestamos ID:{" "}
-                {usuario.prestamos_id}
+            {libros.map((libro) => (
+              <li key={libro.id}>
+                ID: {libro.id}, Titulo: {libro.titulo}, Genero: {libro.genero},
+                Stock: {libro.stock}, Autor: {libro.autor_id}
               </li>
             ))}
           </ul>
@@ -63,4 +62,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Libro;
